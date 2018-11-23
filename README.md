@@ -7,6 +7,8 @@ leaves out the last four months, as they are "unverified".
 This check might be considered unscientific as I am only using Swedish air temperature, not world-wide air
 and ocean temperatures.
 
+You will need to `pip install pandas sklearn`.
+
 
 ## Usage
 
@@ -19,7 +21,7 @@ downloading new data from SMHI:
   medel, 1 gång per månad
   Lufttemperatur - Övre Gränsö
 loading station data:
-  99 %  Söderarm A
+ 100%  Söderarm A
 971 stations counted.
 Temperature in Sweden is up by 0.1 degrees C since 1732.
 ```
@@ -28,7 +30,7 @@ Temperature in Sweden is up by 0.1 degrees C since 1732.
 
 ![climate-unchange](https://raw.githubusercontent.com/highfestiva/climate_check/master/readme-img/climate-unchange.png)
 
-Are you stumped too? If you find any bugs, let me know or add a pull request. Spread the word.
+If you find any bugs, let me know or add a pull request. Spread the word.
 
 
 ## Licence
