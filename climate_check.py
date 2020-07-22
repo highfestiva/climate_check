@@ -19,7 +19,7 @@ from urllib.request import urlretrieve
 data_path = 'smhi_data/'
 smhi_stations_url = 'https://opendata-download-metobs.smhi.se/api/version/1.0/parameter/22.json'
 banner = '''
-Climate check v0.3 using SMHI air temperature data.
+Climate check v0.4 using SMHI air temperature data.
 
   This check might be considered unscientific as I am only using Swedish air temperature,
   not world-wide air and ocean temperatures.
@@ -36,7 +36,10 @@ def download_station_data(station):
     print('\r  %s           ' % station['title'], end='', flush=True)
     url = 'https://opendata-download-metobs.smhi.se/api/version/1.0/parameter/22/station/%s/period/corrected-archive/data.csv' % station['id']
     filename = data_path + '%s.csv' % station['id']
-    urlretrieve(url, filename)
+    try:
+        urlretrieve(url, filename)
+    except Exception as e:
+        print(type(e), e)
 
 
 def download_data():
@@ -92,8 +95,9 @@ def load_smhi_csv(fn):
 
 
 def largest_consecutive_block(ser):
-    sparse = ser.to_sparse()
-    block_locs = list(zip(sparse.sp_index.blocs, sparse.sp_index.blengths))
+    sparse = pd.arrays.SparseArray(ser)
+    spidx = sparse.sp_index.to_block_index()
+    block_locs = list(zip(spidx.blocs, spidx.blengths))
     if not block_locs:
         return ser.iloc[:0]
     largest = max(block_locs, key=lambda e:e[1])
@@ -107,7 +111,7 @@ def pos_adjust_temp(df, pos_corr):
     reg.fit(pos_corr[['altitude','latitude']], pos_corr['avg_temp'])
     c_altitude,c_latitude = reg.coef_
     c_altitude = min(0.0, c_altitude) # altitude correlates negatively, or not at all
-    c_latitude = min(0.0, c_latitude) # latitude correlates negatively, or not at all
+    c_latitude = min(0.0, c_latitude) # latitude correlates negatively (in the nothern hemisphere), or not at all
     adj_temp = df['temp'].copy()
     avg_alt = df['altitude'].mean()
     avg_lat = df['latitude'].mean()
