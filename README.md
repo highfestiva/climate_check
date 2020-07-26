@@ -17,20 +17,17 @@ $ ./climate_check.py
 
 ...
 
-downloading new data from SMHI:
-  medel, 1 gång per månad
-  Lufttemperatur - Övre Gränsö
 loading station data:
- 100%  Söderarm A
-971 stations counted.
-Temperature in Sweden is up by 0.1 degrees C since 1732.
+  100%  Söderarm A
+  911 stations counted.
+Average air temperature in Sweden is up by 1.2 degrees C since 1741.
 ```
 
 ## Result
 
 ![climate-unchange](https://raw.githubusercontent.com/highfestiva/climate_check/master/readme-img/climate-unchange.png)
 
-If you find any bugs, let me know or add a pull request. Spread the word.
+If you find any bugs, let me know or add a pull request.
 
 
 ## Licence
