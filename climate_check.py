@@ -181,10 +181,10 @@ def load_data(options):
 def plot_total_time(df):
     df = df.dropna(subset=['adjusted_temp']).copy()
     df['Annual temperature cycle'] = df['adjusted_temp']
-    df['20 year mean'] = df['20yr'] = df['Annual temperature cycle'].rolling(20*12).mean()
-    df = df.dropna(subset=['20yr'])
-    start_mean_temp = df['20yr'].iloc[0]
-    end_mean_temp = df['20yr'].iloc[-1]
+    df['30 year mean'] = df['30yr'] = df['Annual temperature cycle'].rolling(30*12).mean()
+    df = df.dropna(subset=['30yr'])
+    start_mean_temp = df['30yr'].iloc[0]
+    end_mean_temp = df['30yr'].iloc[-1]
     temp_diff = end_mean_temp - start_mean_temp
     date = str(df.index[0])
     date = date.split('-')[0]
@@ -197,7 +197,7 @@ def plot_total_time(df):
     cols = ['time'] + list(df.columns[1:])
     df.columns = cols
     df.plot(x='time', y='Annual temperature cycle', color='#dddddd', ax=ax)
-    df.plot(x='time', y='20 year mean', ax=ax)
+    df.plot(x='time', y='30 year mean', ax=ax)
 
 
 def plot_year_cycles(df):
