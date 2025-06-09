@@ -191,9 +191,8 @@ def plot_total_time(df):
     date = date.split('-')[0]
     title = 'Average air temperature in Sweden is up by %.1f degrees C since %s.' % (temp_diff, date)
     print(title)
-    fig,ax = plt.subplots()
+    fig,ax = plt.subplots(num='Average air temperature in Sweden over time')
     ax.set_title(title)
-    fig.canvas.setWindowTitle('Average air temperature in Sweden over time')
     df = df.reset_index()
     cols = ['time'] + list(df.columns[1:])
     df.columns = cols
@@ -209,10 +208,9 @@ def plot_year_cycles(df):
     start_year = years[0].year // 10 * 10 # start of decade
     first_decade = pd.Timestamp('%s-01-01'%start_year).tz_localize('Europe/Stockholm')
     decades = pd.date_range(first_decade, next_decade, freq='10YS')
-    fig,ax = plt.subplots()
+    fig,ax = plt.subplots(num='Annual air temperature cycles per decade in Sweden')
     title = '%s decades between %s (blue) - %s (red)' % (len(decades)-1, str(decades[0]).split('-')[0], str(decades[-1]).split('-')[0])
     ax.set_title(title)
-    fig.canvas.setWindowTitle('Annual air temperature cycles per decade in Sweden')
     cmap = plt.get_cmap('coolwarm')
     colors = [cmap(i) for i in np.linspace(0, 1, len(decades)-1)]
     for i,from_decade in enumerate(decades[:-1]):
